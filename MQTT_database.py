@@ -22,19 +22,20 @@ def on_message(client, userdata, message):
   datetime_obj = timestamp.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
   # Process the payload and insert into MongoDB with proper timestamp
   document = {
-  'timestamp': datetime_obj,
-  'temperature': temperature,
-  'motor_status': motor_status,
-  'motion_status':motion_status,
-  'led_status': led_status,
+    'timestamp': datetime_obj,
+    'temperature': temperature,
+    'motor_status': motor_status,
+    'motion_status':motion_status,
+    'led_status': led_status,
   }
-  collection.insert_one(document)
-  print('Data ingested into MongoDB')
- client = mqtt.Client()
- client.on_message = on_message
- # Connect to MQTT broker
- client.connect(mqtt_broker_address, 1883, 60)
- # Subscribe to MQTT topic
- client.subscribe(mqtt_topic)
- # Start the MQTT loop
- client.loop_forever()
+  
+collection.insert_one(document)
+print('Data ingested into MongoDB')
+client = mqtt.Client()
+client.on_message = on_message
+# Connect to MQTT broker
+client.connect(mqtt_broker_address, 1883, 60)
+# Subscribe to MQTT topic
+client.subscribe(mqtt_topic)
+# Start the MQTT loop
+client.loop_forever()
